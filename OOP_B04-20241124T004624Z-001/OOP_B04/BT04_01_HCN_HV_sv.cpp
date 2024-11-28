@@ -146,7 +146,7 @@ float HinhCN::setdt(float dt){
 }
 
 //Cac phuong thuc cua Hinh Vuong
-HinhVuong::HinhVuong()
+HinhVuong::HinhVuong():HinhCN()
 {
 	canh=0;
 }
