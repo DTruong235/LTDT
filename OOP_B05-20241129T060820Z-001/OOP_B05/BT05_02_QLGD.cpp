@@ -122,10 +122,15 @@ int main(){
 			break;
 		}
 		case 2:{
+			int flag = 0;
 			for(int i = 0; i<n ;i++){
 				if(((gd[i]->getNgay()>10)&&(gd[i]->getThang()==9)&&(gd[i]->getNam()==2024)) ||((gd[i]->getNgay()<20)&&(gd[i]->getThang()==9)&&(gd[i]->getNam()==2024)))
-					gd[i]->Xuat();
+					{
+						gd[i]->Xuat();
+						flag++;	
+					}
 			}
+			if(flag==0) cout<<endl<<"Khong co giao dich nao tu ngay 10/9 den 20/9/2024!";
 			break;
 		}
 		case 3:{
@@ -135,23 +140,28 @@ int main(){
 				if((gd[i]->getThang()==11)&&(gd[i]->getNam()==2024))
 					tongThanhTien+=gd[i]->getThanhTien();
 			avgThanhTien = tongThanhTien/n;
-			cout<<endl<<"Trung binh cong thanh tien cua cac giao dich thang 11/2024"<<avgThanhTien;
+			cout<<endl<<"Trung binh cong thanh tien cua cac giao dich thang 11/2024: "<<avgThanhTien;
 			break;
 		}
 		case 4:{
 			float tongThanhTien=0;
 			for(int i = 0; i<n; i++)
-				if(((gd[i]->getThang()>4)&&(gd[i]->getNam()==2024)) || ((gd[i]->getThang()<6)&&(gd[i]->getNam()==2024)))
-					tongThanhTien+=gd[i]->getThanhTien();
-			cout<<endl<<"Tong so tien giao dich trong qui II nam 2024";
+				if((gd[i]->getThang()>4)&&(gd[i]->getNam()==2024))
+					if((gd[i]->getThang()<6)&&(gd[i]->getNam()==2024))
+						tongThanhTien+=gd[i]->getThanhTien();
+			cout<<endl<<"Tong so tien giao dich trong qui II nam 2024: "<<tongThanhTien;
 			break;
 		}
 		case 5:{
 			float SotiencanSoSanh = 0;
+			int flag = 0;
 			cout<<endl<<"Nhap so tien can so sanh: "; cin>>SotiencanSoSanh;
 				for(int i = 0; i<n; i++)
-					if(gd[i]->getThanhTien()>SotiencanSoSanh)
+					if(gd[i]->getThanhTien()>SotiencanSoSanh){
 						gd[i]->Xuat();
+						flag++;
+					}
+			if(flag==0) cout<<endl<<"Khong co giao dich nao lon hon so tien can so sanh!";			
 			break;
 		}
 		case 7:{
@@ -337,9 +347,18 @@ NgayGD::NgayGD(int d,int m,int y){
 }
 
 void NgayGD::Nhap(){
-	cout<<"Ngay: "; cin>>ngay;
-	cout<<"Thang: ";cin>>thang;
-	cout<<"Nam: "; cin>>nam;
+	do{
+		cout<<"Ngay: "; cin>>ngay;
+	}while((ngay<1)||(ngay>31));
+	
+	do{
+		cout<<"Thang: ";cin>>thang;	
+	}while((thang<1)||thang>12);
+	
+	do{
+		cout<<"Nam: "; cin>>nam;
+	}while(nam<2000);
+	
 }
 
 void NgayGD::Xuat(){
