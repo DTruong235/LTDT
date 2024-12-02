@@ -109,7 +109,7 @@ int main(){
 	cout<<"5. Nhung giao dich co thanh tien lon so tien can  so sanh (nhap tu ban phim)"<<endl;
 	cout<<"6. Sap xep danh sach tang theo ma giao dich"<<endl;
 	cout<<"7. Sap xep danh sach tang theo ngay giao dich"<<endl;
-	cout<<"8. Thang co so lam giao dich nhieu nhat"<<endl;
+	cout<<"8. Thang co so lan giao dich nhieu nhat"<<endl;
 	cout<<"0. Thoat";
 	
 		cout<<endl<<"Nhap chuc nang: ";
@@ -136,11 +136,16 @@ int main(){
 		case 3:{
 			float tongThanhTien=0;
 			float avgThanhTien=0;
+			int flag = 0;
 			for(int i = 0; i<n; i++)
 				if((gd[i]->getThang()==11)&&(gd[i]->getNam()==2024))
+				{
 					tongThanhTien+=gd[i]->getThanhTien();
-			avgThanhTien = tongThanhTien/n;
-			cout<<endl<<"Trung binh cong thanh tien cua cac giao dich thang 11/2024: "<<avgThanhTien;
+					flag++;
+				}
+			avgThanhTien = tongThanhTien/flag;
+			if(flag != 0) cout<<endl<<"Trung binh cong thanh tien cua cac giao dich thang 11/2024: "<<avgThanhTien;
+			else cout<<endl<<"Khong co giao dich trong thang 11 nam 2024";
 			break;
 		}
 		case 4:{
@@ -167,10 +172,29 @@ int main(){
 		case 7:{
 			for(int i = 0; i<n-1;i++)
 				for(int j = i+1; j<n;j++)
-					if( ( (gd[i]->getNam()) >= (gd[j]->getNam()) ) || ( ( (gd[i]->getThang()) )>= (gd[j]->getThang()) ) || ((gd[i]->getNgay()) >= (gd[j]->getNgay()))){
-						QLGiaoDich *gdtam = gd[i];
-						gd[i]=gd[j];
-						gd[j]=gdtam;
+					if( ( (gd[i]->getNam()) > (gd[j]->getNam()) ))
+					{
+							QLGiaoDich *gdtam = gd[i];
+								gd[i]=gd[j];
+								gd[j]=gdtam;
+					}
+					else if (( (gd[i]->getNam()) == (gd[j]->getNam()) )){
+						
+						if (( (gd[i]->getThang()) ) > (gd[j]->getThang()))
+						{
+								QLGiaoDich *gdtam = gd[i];
+								gd[i]=gd[j];
+								gd[j]=gdtam;
+						}
+						else if ( (gd[i]->getThang()) == (gd[j]->getThang())){
+					
+							if((gd[i]->getNgay()) > (gd[j]->getNgay()))
+							{
+								QLGiaoDich *gdtam = gd[i];
+								gd[i]=gd[j];
+								gd[j]=gdtam;
+							}
+						}
 					}
 			for(int i = 0; i<n;i++)
 				gd[i]->Xuat();		
@@ -192,19 +216,21 @@ int main(){
 		
 		case 8:{
 			int count[11] = {0,0,0,0,0,0,0,0,0,0,0};
+			int flag = 0;
 			for(int i =0; i<n;i++)
 				if(gd[i]->getNam() ==2024)
 					for(int j = 1; j <12; j++)
 						if(gd[i]->getThang() == j){
 							count[j]++;
-							
+							flag++;	
 						}
 							
 			int max = count[1];
 			for(int i = 1; i<12;i++)
 				if(max<count[i])
 					max = i;
-			cout<<endl<<"Thang co so giao dich nhieu nhat trong nam 2024: "<<max;
+			if(flag != 0 ) cout<<endl<<"Thang co so giao dich nhieu nhat trong nam 2024: "<<max;
+			else cout<<endl<<"Khong co giao dich trong nam 2024!";
 			break;
 		}
 		
