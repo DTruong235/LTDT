@@ -8,7 +8,6 @@
 
 using namespace std;
 
-class NVSX;
 class NhanVien{
 	private:
 		char MSNV [6], HoTen [50], NgaySinh[10];
@@ -203,7 +202,7 @@ void NVQL::Nhap(){
 		cout<<"Tien Thuong (Khong lon hon luong CB (LCB = 3000)): "; cin>>this->TienThuong;
 		if(this->TienThuong>this->LuongCB)
 			cout<<"Tien thuong khong hop le!"<<endl<<"Vui long nhap lai!"<<endl;
-	}while(this->TienThuong>this->LuongCB);
+	}while((this->TienThuong<0) || (this->TienThuong>this->LuongCB));
 	
 	do{
 		cout<<"He so Luong (2.0-5.0): "; cin>>this->HsLuong;
@@ -246,9 +245,9 @@ void NVSX::Nhap(){
 	NhanVien::Nhap();
 	do{
 		cout<<"So luong san pham (khong lon hon 400/thang): "; cin>>this->SLSp;
-		if(this->SLSp>400.0)
+		if((this->SLSp<0) ||(this->SLSp>400.0))
 			cout<<"So luong khong hop le!"<<endl<<"Vui long nhap lai!"<<endl;
-	}while (this->SLSp>400.0);
+	}while ((this->SLSp<0) ||(this->SLSp>400.0));
 	
 	TinhLuong();
 }

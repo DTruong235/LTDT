@@ -72,7 +72,7 @@ int main(){
 	cout<<endl<<"Nhap thong tin Giao Dich"<<endl;
 	cout<<setiosflags (ios::fixed)<<setprecision(3);
 	do{
-		cout<<"Chon giao dich Vang hay giao dich Tien Te (V/T)";
+		cout<<"Chon giao dich Vang hay giao dich Tien Te (V/T): ";
 		cin>>Loai;
 		Loai = toupper(Loai);
 		if(Loai == 'V')
@@ -295,7 +295,7 @@ GiaoDichVang::GiaoDichVang(char* maGd, float thanhTien,int soLuong,char* loaiVan
 void GiaoDichVang::Nhap(){
 	QLGiaoDich::Nhap();
 	cout<<"So luong: "; cin>>SoLuong;
-	cout<<"Loai Vang: (PNJ/SJC/Khac)"; cin>>LoaiVang;
+	cout<<"Loai Vang (PNJ/SJC/Khac): "; cin>>LoaiVang;
 	cin.ignore();
 
 	if((stricmp(LoaiVang,"PNJ")==0) || (stricmp(LoaiVang,"SJC")==0))
@@ -332,14 +332,18 @@ void GiaoDichTienTe::Nhap(){
 	QLGiaoDich::Nhap();
 	cout<<"So tien: "; cin>>SoTien;
 
-	cout<<"Loai Tien te: "; cin>>(LoaiTT);
+	cout<<"Loai Tien te (USD/EURO/VND): "; cin>>(LoaiTT);
 	cin.ignore();
-
-	if(stricmp(LoaiTT,"Euro")==0)
+	
+	if(stricmp(LoaiTT,"EURO")==0)
 		TyGia = 25;
 	else if(stricmp(LoaiTT,"USD")==0)
 			TyGia = 30;
-		else TyGia = 0;	
+		else{
+			if(stricmp(LoaiTT,"VND")==0)
+				TyGia = 1;
+	}
+	
 	TinhTien();
 
 }
